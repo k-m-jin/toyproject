@@ -30,7 +30,9 @@ function App() {
   return (
     <main className="App">
       <Counter />
-      <button onClick={googleLoginFuc}>구글 로그인</button>
+      <button className="bg-sky-500" onClick={googleLoginFuc}>
+        구글 로그인
+      </button>
     </main>
   );
 }

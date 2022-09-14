@@ -16,24 +16,43 @@ const Counter = () => {
   };
 
   return (
-    <section>
+    <section className="bg-[#999] flex flex-col justify-center items-center gap-2">
       <p>{count}</p>
       <div>
-        <button onClick={() => dispatch(increment())}>+</button>
-        <button onClick={() => dispatch(decrement())}>-</button>
+        <button
+          class="w-24 bg-sky-500 drop-shadow-md hover:drop-shadow-xl"
+          onClick={() => dispatch(increment())}
+        >
+          +
+        </button>
+        <button
+          class="w-24 bg-sky-500 drop-shadow-md hover:drop-shadow-xl"
+          onClick={() => dispatch(decrement())}
+        >
+          -
+        </button>
       </div>
 
       <input
+        className="w-24"
         type="text"
         value={incrementAmount}
         onChange={(e) => setIncrementAmount(e.target.value)}
       />
 
       <div>
-        <button onClick={() => dispatch(incrementByAmount(addValue))}>
+        <button
+          class="w-24 bg-sky-500 drop-shadow-md hover:drop-shadow-xl"
+          onClick={() => dispatch(incrementByAmount(addValue))}
+        >
           Add Amount
         </button>
-        <button onClick={resetAll}>Reset</button>
+        <button
+          class="w-24 bg-sky-500 drop-shadow-md hover:drop-shadow-xl"
+          onClick={resetAll}
+        >
+          Reset
+        </button>
       </div>
     </section>
   );
