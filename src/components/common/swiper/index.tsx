@@ -25,6 +25,7 @@ export default () => {
     <Swiper
       modules={[Pagination, Autoplay]}
       pagination={{ type: 'fraction' }}
+      loop={true}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
