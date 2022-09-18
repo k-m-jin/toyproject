@@ -1,12 +1,11 @@
 import { memo } from 'react'
 interface Props {
-  id: string | number
+  id: string
   label: string
-  errorMsg: string
+  errorMsg: string | undefined
   inputProps: string[]
-  // trigger?: boolean
 }
-const FormInput = ({ id, label, errorMsg, inputProps, trigger }: Props) => {
+const FormInput = ({ id, label, errorMsg, inputProps }: Props) => {
   return (
     <div>
       <label htmlFor={id}>{label}</label>

@@ -1,7 +1,8 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import FormInput from '../FormInput'
-import Modal from '../Modal'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { doSignUp } from '../../../store/slice/userSlice'
 
 const ID_REGEX = new RegExp('^[a-z0-9_-]{5,20}$')
 const PW_REGEX = new RegExp('^[a-zA-Z0-9]{8,16}$')
@@ -17,26 +18,33 @@ const ERROR_MSG = {
   invalidPhone: '휴대폰 번호 형식에 일치하지 않습니다.',
 }
 
+type FormInputs = {
+  id: string
+  pw: string
+  confirmPw: string
+  email: string
+  phone: string
+}
 const Form = () => {
-  const { register, handleSubmit, setFocus, getValues, formState, trigger } = useForm<FormValues>({
+  const { register, handleSubmit, setFocus, getValues, formState, trigger } = useForm<FormInputs>({
     mode: 'onBlur',
   })
 
-  const modalRef = useRef<HTMLDialogElement>(null)
+  const dispatch = useDispatch()
 
   const onSubmit = useCallback(() => {
-    if (modalRef.current) {
-      modalRef.current.showModal()
-    }
+    // console.log(getValues())
+    const userData = getValues()
+    dispatch(doSignUp(userData))
   }, [])
 
   useEffect(() => {
-    setFocus('id')
+    setFocus('id', { shouldSelect: true })
   }, [])
 
   return (
     <>
-      <form id='form' className='w-full max-w-md m-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+      <form id='form' autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           id={'id'}
           label={'아이디'}
@@ -52,7 +60,7 @@ const Form = () => {
               required: ERROR_MSG.required,
             }),
           }}
-          trigger={trigger}
+          // trigger={trigger}
         />
 
         <FormInput
@@ -95,12 +103,12 @@ const Form = () => {
           errorMsg={formState.errors['email']?.message}
           inputProps={{
             type: 'text',
-            placeholder: '아이디를 입력해주세요.',
+            placeholder: '이메일를 입력해주세요.',
             ...register('email', {
-              pattern: {
-                value: EMAIL_REGEX,
-                message: ERROR_MSG.invalidEmail,
-              },
+              // pattern: {
+              //   value: EMAIL_REGEX,
+              //   message: ERROR_MSG.invaliEmail,
+              // },
               required: ERROR_MSG.required,
             }),
           }}
@@ -113,19 +121,18 @@ const Form = () => {
             type: 'text',
             placeholder: '하이폰이 없는 숫자로만 입력',
             ...register('phone', {
-              pattern: {
-                value: PHONE_REGEX,
-                message: ERROR_MSG.invalidPhone,
-              },
+              // pattern: {
+              //   value: PHONE_REGEX,
+              //   message: ERROR_MSG.invalidPhone,
+              // },
               required: ERROR_MSG.required,
             }),
           }}
         />
-        <div className='flex items-center justify-center'>
+        <div>
           <input id='submit' type='submit' value='가입하기' />
         </div>
       </form>
-      <Modal ref={modalRef} getValues={getValues} />
     </>
   )
 }

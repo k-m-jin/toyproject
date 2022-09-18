@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-// import { dustReducer } from "./slice/dustSlice";
+import { userReducer } from './slice/userSlice'
 
 export const store = configureStore({
   reducer: {
-    // dust: dustReducer,
+    user: userReducer,
   },
 })
 
