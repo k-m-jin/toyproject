@@ -7,7 +7,7 @@ function App() {
     <>
       <section className='form-wrapper'>
         <Form />
-        {/* <Swiper /> */}
+        <Swiper />
       </section>
     </>
   )
